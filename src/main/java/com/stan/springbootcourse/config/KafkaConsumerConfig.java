@@ -19,10 +19,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-@RequiredArgsConstructor
 public class KafkaConsumerConfig {
 
-    @Value("${spring.kafka.bootstrap-servers}")
+    @Value("${spring.kafka.bootstrap-servers:http://localhost:9093}")
     private String bootstrapServers;
 
     @Value("${properties.max-poll-records}")
@@ -31,7 +30,7 @@ public class KafkaConsumerConfig {
     @Value("${properties.off-set-config}")
     private String offSetConfig;
 
-    @Value("${properties.poll-interval}")
+    @Value("${properties.poll-interval:60000}")
     private int maxPollInterval;
 
     @Value("${properties.concurrency}")
@@ -40,7 +39,7 @@ public class KafkaConsumerConfig {
 
     private Map<String, Object> commonConfigProps() {
         Map<String, Object> configProps = new HashMap<>();
-        configProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+        configProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "http://localhost:9093");
         configProps.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false); // Disable auto-commit
         configProps.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, offSetConfig); // Start from the earliest message
         configProps.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, maxPollRecords); // Process one record at a time

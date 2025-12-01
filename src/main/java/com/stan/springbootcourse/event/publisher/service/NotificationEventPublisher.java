@@ -1,6 +1,7 @@
 package com.stan.springbootcourse.event.publisher.service;
 
 import com.stan.springbootcourse.dto.request.NotificationRequest;
+import com.stan.springbootcourse.event.ETopic;
 import com.stan.springbootcourse.event.EventTopic;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +25,7 @@ public class NotificationEventPublisher {
             if (Objects.isNull(message)) {
                 throw new IllegalArgumentException("message is null");
             }
-            kafkaTemplate.send(EventTopic.NOTIFICATION_TOPIC, gson.toJson(message));
+            kafkaTemplate.send(ETopic.NOTIFICATION_TOPIC, gson.toJson(message));
             log.info("Notification event published");
         } catch (Exception e) {
             log.error(e.getMessage());

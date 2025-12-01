@@ -12,7 +12,7 @@ notification:
   type: Message
 
 server:
-  port: 9005
+  port: 9001
   error:
     include-message: always
 
@@ -21,7 +21,7 @@ server:
 
 spring:
   kafka:
-    bootstrap-servers: localhost:9092      # adjust host:port as needed
+    bootstrap-servers: localhost:9093      # adjust host:port as needed
     consumer:
       properties:
         metadata.max.age.ms: 1000

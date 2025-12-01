@@ -1,9 +1,7 @@
 package com.stan.springbootcourse.controller;
 
-import com.stan.springbootcourse.dependencyInjections.NotificationService;
 import com.stan.springbootcourse.dto.request.NotificationRequest;
 import com.stan.springbootcourse.dto.response.DefaultResponse;
-import com.stan.springbootcourse.entity.Profile;
 import com.stan.springbootcourse.event.publisher.service.NotificationEventPublisher;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("api/vi/notify")
+@RequestMapping("api/v1/notify")
 public class NotificationController {
     private final NotificationEventPublisher notificationEventPublisher;
     @PostMapping
