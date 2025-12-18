@@ -20,7 +20,7 @@ public class DateConverter {
     // Example usage
     public static void main(String[] args) throws ParseException {
         Date now = new Date();
-        String isoString = convertDateToIsoUtc("wwww");
+        String isoString = convertDateToIsoUtc("2024-02-19");
         System.out.println("ISO UTC Format: " + isoString);
     }
 }
