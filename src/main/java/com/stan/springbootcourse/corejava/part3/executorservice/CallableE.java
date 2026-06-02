@@ -42,7 +42,7 @@ public class CallableE {
     }
 
     public Transactions printingTransactions() throws InterruptedException {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
+        ExecutorService executor = Executors.newFixedThreadPool(4);
         try {
             var f = executor.submit(this::createTransactions);
             return f.get(4000, TimeUnit.MILLISECONDS);
@@ -57,11 +57,24 @@ public class CallableE {
         }
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    public CompletableFuture<Transactions> printingTransactionsAsync(){
+        return CompletableFuture.supplyAsync(()-> {
+            try {
+                return printingTransactions();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+    public static void main(String[] args) throws InterruptedException, ExecutionException {
         CallableE cal = new CallableE();
         cal.executingTransactions();
         // System.out.println(cal.createTransactions());
-        System.out.println("Printing Transaction:: " + cal.printingTransactions());
+        //System.out.println("Printing Transaction:: " + cal.printingTransactions());
+        CompletableFuture<Transactions> result = cal.printingTransactionsAsync();
+        result.thenAccept(c->System.out.println("printingTransactionsAsync Accept:: " + c));
+        System.out.println("printingTransactionsAsync Transaction:: " + cal.printingTransactionsAsync().get());
         Thread.sleep(5000);
     }
 }
